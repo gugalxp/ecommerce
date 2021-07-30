@@ -1,22 +1,22 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => NULL,
+        'reference' => 'a6952f9c1a62837833dfdbc161daf6d0f6cd5c59',
         'name' => 'gugalxp/ecommerce',
         'dev' => true,
     ),
     'versions' => array(
         'gugalxp/ecommerce' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => NULL,
+            'reference' => 'a6952f9c1a62837833dfdbc161daf6d0f6cd5c59',
             'dev_requirement' => false,
         ),
         'phpmailer/phpmailer' => array(
