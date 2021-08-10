@@ -8,6 +8,7 @@ use \Slim\Slim;
 use  \Hcode\Page;
 use  \Hcode\PageAdmin;
 use \Hcode\Model\User;
+use \Hcode\Model\Category;
 
 $app = new Slim();
 
@@ -131,7 +132,7 @@ User::verifyLogin(); //verifica o login
 
 $user = new User();
 
-$_POST["inadmin"] = (isset($_POST["inadimin"]))?1:0; // recebe através do admin o check vai ser false e true para definir se tera ou nao acesso ao admin e tmb tem a confimação se a conta cadastrada vai ter aceeso ao admin
+$_POST["inadmin"] = (isset($_POST["inadmin"]))?1:0; // recebe através do admin o check vai ser false e true para definir se tera ou nao acesso ao admin e tmb tem a confimação se a conta cadastrada vai ter aceeso ao admin
 
 $user->setData($_POST);
 
@@ -175,7 +176,7 @@ User::verifyLogin();//verifica o login
 
 $user = new User();
 
-$_POST["inadmin"] = (isset($_POST["inadimin"]))?1:0;
+$_POST["inadmin"] = (isset($_POST["inadmin"]))?1:0;
 
 $user->get((int)$iduser); 
 
@@ -206,14 +207,16 @@ $app->get("/admin/forgot", function(){
 });
  
 $app->post("/admin/forgot", function() {
- 
-    $user = User::getForgot($_POST["email"]);
+  
+   $user = User::getForgot($_POST["email"]);
  
     header("Location: /admin/forgot/sent");
     exit;
 });
  
 $app->get("/admin/forgot/sent", function(){
+
+    User::verifyLogin();//verifica o login
  
     $page = new PageAdmin([
         "header"=>false,
@@ -263,9 +266,112 @@ $app->post("/admin/forgot/reset", function() {
         "footer"=>false
     ]);
  
-    $page->setTpl("forgot-reset-success");
+    $page->setTpl("forgot-reset-success");  //parte que relaciona o banco de dados com o template
+
+
 
 });
+
+$app->get("/admin/categories", function(){
+
+    User::verifyLogin();//verifica o login
+
+    $categories = Category::listAll();
+
+    $page = new PageAdmin();
+ 
+    $page->setTpl("categories", [
+
+        'categories'=>$categories
+
+    ]); //parte que relaciona o banco de dados com o template
+
+});
+
+$app->get("/admin/categories/create", function(){
+
+    User::verifyLogin();//verifica o login
+
+   $page = new PageAdmin();
+ 
+    $page->setTpl("categories-create"); //parte que relaciona o banco de dados com o template
+
+});
+
+
+$app->post("/admin/categories/create", function(){
+
+    User::verifyLogin();//verifica o login
+  
+    $category = new Category();
+
+    $category->setData($_POST);
+
+    $category->save();
+
+    header('Location: /admin/categories');  
+    exit;
+
+    $page = new PageAdmin();
+ 
+    $page->setTpl("categories-create"); //parte que relaciona o banco de dados com o template
+
+});
+
+
+$app->get("/admin/categories/:idcategory/delete", function($idcategory)
+{
+    User::verifyLogin();//verifica o login
+
+    $category = new Category();
+
+    $category->get((int)$idcategory);
+
+    $category->delete();
+
+     header('Location: /admin/categories');  
+    exit;
+
+
+});
+
+
+$app->get("/admin/categories/:idcategory", function($idcategory)
+{
+    User::verifyLogin();//verifica o login
+
+    $category = new Category();
+
+    $category->get((int)$idcategory);
+
+    $page = new PageAdmin();
+ 
+    $page->setTpl("categories-update", [
+
+        'category'=>$category->getValues()
+
+    ]); //parte que relaciona o banco de dados com o template
+
+
+});
+
+$app->post("/admin/categories/:idcategory", function($idcategory)
+{
+
+    $category = new Category();
+
+    $category->get((int)$idcategory);
+
+    $category->setData($_POST);
+
+    $category->save();
+
+    header('Location: /admin/categories');  
+    exit;
+
+
+});
+
 
 $app->run();
 

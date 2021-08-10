@@ -94,7 +94,6 @@ public function save()  //função para salvar o novo usuario cadastrado no banc
 	$sql = new Sql();
 
 
-
 $results = $sql->select("CALL sp_users_save(:desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", array( //ACESSA o banco coluna por coluna, através das chaves descritan o próprio banco
 
 		":desperson"=>$this->getdesperson(), //acessa o nome no banco de dados para fazer update
