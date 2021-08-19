@@ -63,7 +63,7 @@ public static function verifyLogin($inadmin = true) { //
 		!(int)$_SESSION[User::SESSION]["iduser"] > 0 // verifica o id
 		||
 		(bool)$_SESSION[User::SESSION]["inadmin"] !== $inadmin
-) {
+) {	
 
 	 	header("Location: /admin/login");
 	 	exit;
