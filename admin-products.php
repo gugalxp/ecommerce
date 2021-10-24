@@ -1,35 +1,64 @@
-<?php
+<?php 
 
 use \Hcode\PageAdmin;
 use \Hcode\Model\User;
 use \Hcode\Model\Product;
 
-$app->get("/admin/products", function(){ //lista os produtos
+$app->get("/admin/products", function(){
 
 	User::verifyLogin();
+
+	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
+	$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+
+	if ($search != '') {
+
+		$pagination = Product::getPageSearch($search, $page);
+
+	} else {
+
+		$pagination = Product::getPage($page);
+
+	}
+
+	$pages = [];
+
+	for ($x = 0; $x < $pagination['pages']; $x++)
+	{
+
+		array_push($pages, [
+			'href'=>'/admin/products?'.http_build_query([
+				'page'=>$x+1,
+				'search'=>$search
+			]),
+			'text'=>$x+1
+		]);
+
+	}
 
 	$products = Product::listAll();
 
 	$page = new PageAdmin();
 
 	$page->setTpl("products", [
-
-		"products"=>$products
-
+		"products"=>$pagination['data'],
+		"search"=>$search,
+		"pages"=>$pages
 	]);
+
 });
 
-$app->get("/admin/products/create", function(){ //template para adicionar um novo produto
+$app->get("/admin/products/create", function(){
 
 	User::verifyLogin();
 
 	$page = new PageAdmin();
 
 	$page->setTpl("products-create");
+
 });
 
-
-$app->post("/admin/products/create", function(){ //cria um novo produto no banco de dados
+$app->post("/admin/products/create", function(){
 
 	User::verifyLogin();
 
@@ -41,9 +70,10 @@ $app->post("/admin/products/create", function(){ //cria um novo produto no banco
 
 	header("Location: /admin/products");
 	exit;
+
 });
 
-$app->get("/admin/products/:idproduct", function($idproduct){ //edita um produto
+$app->get("/admin/products/:idproduct", function($idproduct){
 
 	User::verifyLogin();
 
@@ -51,19 +81,15 @@ $app->get("/admin/products/:idproduct", function($idproduct){ //edita um produto
 
 	$product->get((int)$idproduct);
 
-	$product->setData($_POST);
-
 	$page = new PageAdmin();
 
 	$page->setTpl("products-update", [
-
 		'product'=>$product->getValues()
-
 	]);
+
 });
 
-
-$app->post("/admin/products/:idproduct", function($idproduct){ //edita um produto
+$app->post("/admin/products/:idproduct", function($idproduct){
 
 	User::verifyLogin();
 
@@ -75,15 +101,14 @@ $app->post("/admin/products/:idproduct", function($idproduct){ //edita um produt
 
 	$product->save();
 
-if($_FILES["file"]["name"] !== "") $product->setPhoto($_FILES["file"]);
+	$product->setPhoto($_FILES["file"]);
 
- 	
 	header('Location: /admin/products');
 	exit;
 
 });
 
-	$app->get("/admin/products/:idproduct/delete", function($idproduct){ //edita um produto
+$app->get("/admin/products/:idproduct/delete", function($idproduct){
 
 	User::verifyLogin();
 
@@ -98,6 +123,4 @@ if($_FILES["file"]["name"] !== "") $product->setPhoto($_FILES["file"]);
 
 });
 
-
-
-?>
+ ?>

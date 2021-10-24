@@ -1,13 +1,13 @@
 {
-    "name": "gugalxp/ecommerce",
+    "name": "hcodebr/ecommerce",
     "authors": [
         {
-            "name": "Gustavo Arruda",
-            "email": "gustavoleone3456@hotmail.com"
+            "name": "Hcode Treinamentos",
+            "email": "suporte@hcode.com.br"
         }
     ],
     "require": {
-    	"phpmailer/phpmailer":"5.2.22",
+    	"phpmailer/phpmailer":"6.1.6",
     	"slim/slim":"2.0",
     	"rain/raintpl":"3.0.0"
     },

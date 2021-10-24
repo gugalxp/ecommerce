@@ -4,10 +4,10 @@ namespace Hcode\DB;
 
 class Sql {
 
-	const HOSTNAME = "127.0.0.1";
-	const USERNAME = "root";
+	const HOSTNAME = "";
+	const USERNAME = "";
 	const PASSWORD = "";
-	const DBNAME = "db_ecommerce";
+	const DBNAME = "";
 
 	private $conn;
 
@@ -15,10 +15,11 @@ class Sql {
 	{
 
 		$this->conn = new \PDO(
-			"mysql:dbname=".Sql::DBNAME.";host=".Sql::HOSTNAME,
-			 Sql::USERNAME, 
-			 Sql::PASSWORD
+			"mysql:dbname=".Sql::DBNAME.";host=".Sql::HOSTNAME, 
+			Sql::USERNAME,
+			Sql::PASSWORD
 		);
+
 	}
 
 	private function setParams($statement, $parameters = array())
