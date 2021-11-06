@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b4eb7a16db1b62b9a33873c5a05ea8d1",
+    "content-hash": "40ad87d4eae0c4cd0081590ec500ae8c",
     "packages": [
         {
             "name": "phpmailer/phpmailer",
@@ -64,10 +64,6 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "support": {
-                "issues": "https://github.com/PHPMailer/PHPMailer/issues",
-                "source": "https://github.com/PHPMailer/PHPMailer/tree/master"
-            },
             "time": "2017-01-09T09:33:47+00:00"
         },
         {
@@ -99,10 +95,6 @@
                 }
             ],
             "description": "easy and fast template engine",
-            "support": {
-                "issues": "https://github.com/rainphp/raintpl3/issues",
-                "source": "https://github.com/rainphp/raintpl3/tree/3.0.0"
-            },
             "time": "2012-12-24T05:24:32+00:00"
         },
         {
@@ -146,10 +138,6 @@
                 "rest",
                 "router"
             ],
-            "support": {
-                "issues": "https://github.com/slimphp/Slim/issues",
-                "source": "https://github.com/slimphp/Slim/tree/2.0.0"
-            },
             "time": "2012-09-09T14:54:09+00:00"
         }
     ],
@@ -160,6 +148,5 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "platform-dev": []
 }
